@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Utils</RootNamespace>
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta2" />
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec Command="xcopy /y /d  &quot;$(ProjectDir)$(OutDir)\Utils.dll&quot; &quot;C:\Code\Frameworks&quot;&#xA;xcopy /y /d  &quot;C:\Code\Frameworks\Utils.dll&quot; &quot;D:\UndefinedProject\Undefined\Assets\Plugins&quot; " />
+    </Target>
+
+</Project>
