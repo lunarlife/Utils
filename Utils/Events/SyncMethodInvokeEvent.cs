@@ -2,7 +2,7 @@ using System.Reflection;
 
 namespace Utils.Events;
 
-public class SyncMethodInvokeEvent : Event
+public class SyncMethodInvokeEvent : EventData
 {
     public MethodInfo Method { get; }
     public object Target { get; }
