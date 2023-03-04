@@ -48,7 +48,7 @@ public sealed class Event
         lock (_lockObj)
         {
             if (!_handlers.Contains(handler)) throw new EventException("handler is not registered");
-            _handlers.Add(handler);
+            _handlers.Remove(handler);
         }
     }
 }
@@ -99,7 +99,7 @@ public sealed class Event<T> where T : EventData
         lock (_lockObj)
         {
             if (!_handlers.Contains(handler)) throw new EventException("handler is not registered");
-            _handlers.Add(handler);
+            _handlers.Remove(handler);
         }
     }
 }

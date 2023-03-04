@@ -19,7 +19,7 @@ namespace Utils
                 ClampOut(value.Width, min.Width, max.Width), ClampOut(value.Height, min.Height, max.Height));
 
         public static float Lerp(float start, float end, float time) => LerpUnclamped(start, end, ClampOut(time, 0f, 1f));
-        public static float LerpUnclamped(float start, float end, float time) => start * (1 - time) + end * time;
+        public static float LerpUnclamped(float start, float end, float time) => start * (1f - time) + end * time;
      
         
         private static Dot2 GetPositionOfLerpCurve(IList<Dot2> curvePositions, float time)

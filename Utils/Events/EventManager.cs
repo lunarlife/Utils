@@ -50,7 +50,20 @@ public static class EventManager
                 Handlers.Add(type, new List<Delegate> { handler });
         }
     }
-
+    public static void RegisterEvent(Type type, EventHandler<EventData> handler)
+    {
+        lock (HandlersLock)
+        {
+            if (Handlers.ContainsKey(type))
+            {
+                var list = Handlers[type];
+                if (list.Contains(handler)) throw new EventException("handler already registered");
+                list.Add(handler);
+            }
+            else
+                Handlers.Add(type, new List<Delegate> { handler });
+        }
+    }
     public static void UnregisterEvent<T>(EventHandler<T> handler) where T : EventData
     {
         var type = typeof(T);
@@ -63,7 +76,17 @@ public static class EventManager
             list.Remove(handler);
         }
     }
-
+    public static void UnregisterEvent(Type type, EventHandler<EventData> handler)
+    {
+        lock (HandlersLock)
+        {
+            if (!Handlers.ContainsKey(type))
+                throw new EventException("handler is not registered");
+            var list = Handlers[type];
+            if (!list.Contains(handler)) throw new EventException("handler is not registered");
+            list.Remove(handler);
+        }
+    }
     public static void UnregisterEvents(IEventListener listener)
     {
         lock (Handlers)

@@ -1,7 +1,7 @@
 using System.Reflection;
 using Utils.Exceptions;
 
-namespace Utils;
+namespace Utils.Reflection;
 
 public static class ReflectionUtils
 {
@@ -10,7 +10,7 @@ public static class ReflectionUtils
     public static ConstructorInfo? GetEmptyConstructor(Type type) =>
         type.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
             .FirstOrDefault(c => c.GetParameters().Length == 0);
-    
+
     public static ConstructorInfo? GetConstructor(Type type, params Type[] ctorTypes) =>
         type.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
             .FirstOrDefault(c =>
@@ -47,7 +47,7 @@ public static class ReflectionUtils
         info.SetValue(target, value);
         return true;
     }
-    
+
     private static void ValidateField(FieldInfo info)
     {
         if (info.IsInitOnly) throw new ReflectionException("field is init only");
@@ -94,12 +94,12 @@ public static class ReflectionUtils
             args |= BindingFlags.Instance;
         if (types.HasFlag(ReflectionType.Static))
             args |= BindingFlags.Static;
-        
+
         var baseType = type;
         while (baseType != typeof(object) && baseType != null)
         {
             if (baseType.GetMethod(name, args) is
-                {  } method && method.GetParameters().AllEquals(parameters, (p, t) => p.ParameterType == t))
+                { } method && method.GetParameters().AllEquals(parameters, (p, t) => p.ParameterType == t))
             {
                 info = method;
                 return true;

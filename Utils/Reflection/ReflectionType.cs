@@ -1,4 +1,4 @@
-namespace Utils;
+namespace Utils.Reflection;
 
 [Flags]
 public enum ReflectionType

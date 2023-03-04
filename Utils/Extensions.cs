@@ -7,6 +7,12 @@ public static class Extensions
         var newArray = new T[array.Length];
         Array.Copy(array, newArray, array.Length);
         return newArray;
+    }    
+    public static Array Copy(this Array array)
+    { 
+        var newArray = Array.CreateInstance(array.GetType().GetElementType()!, array.Length);
+        Array.Copy(array, newArray, array.Length);
+        return newArray;
     }
     public static List<T> Copy<T>(this List<T> list)
     {
